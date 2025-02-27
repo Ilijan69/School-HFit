@@ -1,0 +1,56 @@
+.vertical-rectangle {
+    position: relative;
+    height: 100vh; /* Make the container take full height */
+  }
+  
+  .arrow-container {
+    position: sticky;
+    top: 20px;
+    right: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .custom-arrow {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-top: 70px solid white; /* Arrowhead color */
+    position: relative;
+    z-index: -1;
+  }
+  
+  .arrow-tail {
+    width: 50px;
+    background-color: white;
+    position: relative;
+    z-index: 3;
+    transition: height 0.2s ease, opacity 0.2s ease; /* Smooth transition for tail */
+  }
+
+  /* Adjusting the vertical-rectangle for smaller screens */
+@media (max-width: 768px) {
+  #page_Index  .custom-arrow {
+    border: none;
+    background-color: transparent;
+  }
+  #page_Index .arrow-tail{
+    border: none;
+    background-color: transparent;
+  }
+}
+
+@media (max-width: 480px) {
+  #page_Index  .custom-arrow {
+    border: none;
+    background-color: transparent;
+  }
+  #page_Index .arrow-tail{
+    border: none;
+    background-color: transparent;
+  }
+}
+  

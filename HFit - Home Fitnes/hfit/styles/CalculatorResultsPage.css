@@ -1,0 +1,251 @@
+p{
+  display: block;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 5px;
+  position: absolute;
+}
+#page_CalorieCalculatorResult .rectangle_result {
+  width: 600px;
+  height: 400px;
+  background: #1e1e20;
+  border-radius: 15px;
+  border: #fff solid 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Center horizontally */
+  position: absolute; /* Use absolute positioning */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset by half its width and height */
+  padding: 25px; /* Add some padding */
+}
+#page_CalorieCalculatorResult .rectangle_maintenance {
+  width: 650px;
+  height: 100px;
+  background: #2c2c2f;
+  border-radius: 15px;
+  border: #fff solid 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 70%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .maintenance_separation {
+  background-color: white;
+  height: 100px;
+  width: 3px;
+  position: absolute;
+  left: 40%;
+}
+#page_CalorieCalculatorResult .maintenance_text {
+  bottom: 36%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .maintain_box_pic {
+  width: 75px;
+  height: 80%;
+  border-radius: 15px;
+  border: 2px #564dff solid;
+  position: absolute;
+  z-index: 20;
+  left: 87%;
+  bottom: 11%;
+}
+#page_CalorieCalculatorResult .rectangle_deficit {
+  width: 700px;
+  height: 100px;
+  background: #3e3e42;
+  border-radius: 15px;
+  border: #fff solid 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 48%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .deficit_text {
+  bottom: 36%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .deficit_separation {
+  background-color: white;
+  height: 100px;
+  width: 3px;
+  position: absolute;
+  left: 37.2%;
+}
+#page_CalorieCalculatorResult .deficit_box_pic {
+  width: 75px;
+  height: 76%;
+  border-radius: 15px;
+  border: 2px #564dff solid;
+  position: absolute;
+  z-index: 20;
+  left: 88%;
+  bottom: 14%;
+}
+#page_CalorieCalculatorResult .rectangle_surplus {
+  width: 750px;
+  height: 100px;
+  background: #54545a;
+  border-radius: 15px;
+  border: #fff solid 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 26%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .surplus_text {
+  bottom: 36%;
+  left: 5%;
+}
+#page_CalorieCalculatorResult .surplus_separation {
+  background-color: white;
+  height: 100px;
+  width: 3px;
+  position: absolute;
+  left: 34.7%;
+}
+#page_CalorieCalculatorResult .surplus_box_pic {
+  width: 80px;
+  height: 80%;
+  border-radius: 15px;
+  border: 2px #564dff solid;
+  position: absolute;
+  z-index: 20;
+  left: 88%;
+  bottom: 10%;
+}
+#page_CalorieCalculatorResult #maintenance {
+  display: block;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 5px;
+  position: absolute;
+  left: 120%;
+}
+#page_CalorieCalculatorResult #deficit {
+  display: block;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 5px;
+  left: 145%;
+}
+#page_CalorieCalculatorResult #surplus {
+  display: block;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 5px;
+  left: 147%;
+}
+
+#page_CalorieCalculatorResult button {
+  width: 80%;
+  padding: 4% 0;
+  text-align: center;
+  margin: 20px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 2px solid #2922a5;
+  background: #1e4c98;
+  color: white;
+  box-shadow: 0px 10px 20px rgb(0, 0, 0, 0.7);
+  bottom: -310px; /* Adjust the distance from the bottom */
+  left: 10%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* Ensure button content is on top */
+  transition: transform 0.5s, border 0.5s;
+}
+#page_CalorieCalculatorResult span {
+  background: #3275e2;
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  transition: 0.5s;
+}
+#page_CalorieCalculatorResult button:hover span {
+  width: 100%;
+}
+#page_CalorieCalculatorResult button:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
+}
+#page_CalorieCalculatorResult button .text {
+  position: relative; /* Keeps text above the span */
+}
+
+/* Add media queries for mobile view */
+@media (max-width: 768px) {
+  #page_CalorieCalculatorResult .rectangle_result {
+    width: 90%;
+    height: 35%;
+    padding: 10px;
+  }
+  #page_CalorieCalculatorResult .rectangle_maintenance{
+    width: 90%;
+    height: 10%;
+    padding: 10px;
+    left:1.5%;
+  }
+  #page_CalorieCalculatorResult .rectangle_deficit{
+    width: 90%;
+    height: 10%;
+    padding: 10px;
+    left: 1.5%;
+  }
+  #page_CalorieCalculatorResult .rectangle_surplus {
+    width: 90%;
+    height: 10%;
+    padding: 10px;
+    left: 1.5%;
+  }
+  #page_CalorieCalculatorResult .maintenance_text{
+    font-size: 18px;
+    left: 3%;
+  }
+  #page_CalorieCalculatorResult .deficit_text{
+    font-size: 18px;
+    left: 3%;
+  }
+  #page_CalorieCalculatorResult .surplus_text {
+    font-size: 18px;
+    left: 3%;
+  }
+  #page_CalorieCalculatorResult .maintain_box_pic{
+    width: 40px;
+    height: auto;
+    left: 87%;
+  }
+  #page_CalorieCalculatorResult .deficit_box_pic{
+    width: 40px;
+    height: auto;
+    left: 87%;
+  }
+  #page_CalorieCalculatorResult .surplus_box_pic {
+    width: 40px;
+    height: auto;
+    left: 87%;
+  }
+  #page_CalorieCalculatorResult button {
+    width: 90%;
+    padding: 10px 0;
+    left: 50%;
+    bottom: -77%;
+    transform: translateX(-50%);
+  }
+
+  #page_CalorieCalculatorResult .surplus_separation {
+    background-color: transparent;
+  }
+  #page_CalorieCalculatorResult .deficit_separation {
+    background-color: transparent;
+  }
+  #page_CalorieCalculatorResult .maintenance_separation {
+    background-color: transparent;
+  }
+}

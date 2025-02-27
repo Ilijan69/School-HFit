@@ -1,0 +1,420 @@
+#page_TrainingSessions {
+  color: white;
+  padding: 20px;
+}
+#page_TrainingSessions h1 {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 1%;
+  margin-top: 5%;
+}
+
+/*Error message styling*/
+#page_TrainingSessions .error-message {
+  color: red; 
+  font-size: 18px; 
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1%;
+  z-index: 10;
+}
+
+/*Add buttons */
+#page_TrainingSessions button {
+  padding: 10px 20px;
+  background-color: #1e4c98; /* Matching button background */
+  color: white;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid #2922a5; /* Blue border */
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+  transition: transform 0.5s, border 0.5s;
+}
+#page_TrainingSessions span {
+  background: #3275e2; /* Blue highlight */
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: 0.5s;
+}
+#page_TrainingSessions button:hover {
+  background-color: #1e4c98; /* Darker blue on hover */
+  transform: scale(1.05);
+  transition: transform 0.5s;
+}
+#page_TrainingSessions button:hover span {
+  width: 100%;
+}
+
+/*Add button*/
+#page_TrainingSessions .btn-submit:hover {
+  background-color: #1e4c98; /* Darker blue on hover */
+  transform: scale(1.02);
+  transition: transform 0.5s;
+}
+
+/*Instruction button*/
+#page_TrainingSessions .instruction-btn{
+  margin-bottom: 3%;
+}
+
+/*Delete workout button*/
+#page_TrainingSessions .btn-delete {
+  background-color: rgb(188, 37, 37); /* Matching button background */
+  border: 2px solid rgb(151, 30, 30); /* Blue border */
+  margin-bottom: 5%;
+  margin-right: 3%;
+}
+#page_TrainingSessions .btn-delete span {
+  background: rgb(238, 47, 47); /* Blue highlight */
+}
+#page_TrainingSessions .btn-delete:hover {
+  background-color: rgb(188, 37, 37); /* Darker blue on hover */
+}
+
+
+/*Exit instruction button*/
+#page_TrainingSessions .modal-close {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  cursor: pointer;
+  float: right;
+  font-weight: bold;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+#page_TrainingSessions .modal-close:hover {
+  background-color: transparent; /* Darker blue on hover */
+  color: red;
+}
+
+
+/*top part style*/
+.top-part-elements {
+  display: flex;
+  align-items: center; 
+  gap: 1%;
+}
+
+
+/* Form Styles */
+#page_TrainingSessions .workout-form {
+  background-color: #2a2a2d;
+  padding: 20px;
+  border-radius: 12px;
+  border: white solid 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+#page_TrainingSessions .workout-form input,
+#page_TrainingSessions .workout-form textarea {
+  width: 98.5%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #1e1e20;
+  color: white;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+}
+#page_TrainingSessions .workout-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #1e1e20;
+  color: white;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+}
+#page_TrainingSessions .workout-form input::placeholder,
+#page_TrainingSessions .workout-form textarea::placeholder {
+  color: #aaa;
+}
+#page_TrainingSessions .workout-form button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+
+/* Search Container */
+#page_TrainingSessions .search-container {
+  margin: 20px 0;
+}
+#page_TrainingSessions .search-input {
+  width: 98.5%;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  background-color: #1e1e20;
+  color: white;
+}
+#page_TrainingSessions .search-input::placeholder {
+  color: #aaa;
+}
+#page_TrainingSessions .search-icon {
+  position: absolute;
+  margin-left: -2%;
+  top: 30%;
+  color: white; /*Color for the icon*/
+  font-size: 15px;
+}
+
+
+/* Workouts Container */
+#page_TrainingSessions .workouts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+#page_TrainingSessions .workout-card {
+  position: relative;
+  background-color: #2a2a2d;
+  border-radius: 12px;
+  border: solid white 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#page_TrainingSessions .deleting {
+  transform: scale(0.8);
+  opacity: 0;
+}
+#page_TrainingSessions .workout-card:hover {
+  transform: translateY(-5px);
+}
+#page_TrainingSessions .workout-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 2px solid #ffffff;
+}
+#page_TrainingSessions .workout-card h2 {
+  color: #50a8f2;
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+#page_TrainingSessions .workout-card p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+/*Favourite button style*/
+#page_TrainingSessions .favorite-btn {
+  position: absolute;
+  top: 0.5%;
+  left: 80%;
+  padding: 10px 20px;
+  background-color: transparent; /* Matching button background */
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 1;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  transition: transform 0.5s, border 0.5s;
+}
+#page_TrainingSessions .favorite-btn:hover {
+  background-color: transparent;
+}
+#page_TrainingSessions .favorite-btn .star-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #666;
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.2s ease;
+}
+#page_TrainingSessions .favorite-btn.favorited .star-icon {
+  fill: #fbbf24;
+  stroke: #f59e0b;
+}
+#page_TrainingSessions .favorite-btn:hover .star-icon {
+  stroke: #f59e0b;
+}
+
+/*Show favourite workouts button style*/
+#page_TrainingSessions .btn-filter-favoutite{
+  background-color: #fbbf24;
+  border: 2px solid #f59e0b;
+}
+#page_TrainingSessions .btn-filter-favoutite span {
+  background: #f59e0b; /* Blue highlight */
+}
+#page_TrainingSessions .btn-filter-favoutite:hover {
+  background-color: #fbbf24; /* Darker blue on hover */
+}
+
+
+/* Filter and edit Modal */
+/* Modal Overlay */
+#page_TrainingSessions .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+/* Modal Content */
+#page_TrainingSessions .modal-content {
+  background-color: #1e1e20;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Modal Actions */
+#page_TrainingSessions .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+#page_TrainingSessions .modal-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+/* Filter Section */
+#page_TrainingSessions .filter {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+/* Labels and Select Inputs */
+#page_TrainingSessions label {
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+#page_TrainingSessions select {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+#page_TrainingSessions input {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+#page_TrainingSessions textarea {
+  width: 98.5%;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+
+/* Range Slider */
+#page_TrainingSessions .range-slider {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+}
+#page_TrainingSessions input[type="range"] {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 5px;
+  margin: 0; 
+  padding: 0; 
+}
+#page_TrainingSessions  input[type="range"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+#page_TrainingSessions .slider-container input[type="range"]{
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 0; 
+}
+/* Range Labels */
+#page_TrainingSessions .range-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+  position: relative;
+  font-size: 0.9rem; 
+  color: #fff; 
+  margin-top: 5px;
+  z-index: 2;
+}
+
+/* Optimize for mobile view */
+@media (max-width: 768px) {
+  #page_TrainingSessions {
+    padding: 10px;
+    padding-bottom: 30vh;
+  }
+  #page_TrainingSessions h1 {
+    font-size: 1.5rem;
+    margin-top: 60%;
+    margin-bottom: 3%;
+  }
+  #page_TrainingSessions .workout-form select {
+    width: 101%;
+  }
+  #page_TrainingSessions .slider-container input[type="range"]{
+    width: 80%;
+  }
+  #page_TrainingSessions button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  #page_TrainingSessions .workout-form {
+    padding: 15px;
+  }
+  #page_TrainingSessions .workout-form input,
+  #page_TrainingSessions .workout-form textarea {
+    width: 94%;
+  }
+  #page_TrainingSessions .workouts-container {
+    grid-template-columns: 1fr;
+  }
+  #page_TrainingSessions .workout-card {
+    margin-bottom: 20px;
+  }
+  #page_TrainingSessions .modal-content {
+    width: 95%;
+  }
+  #page_TrainingSessions .search-input {
+    width: 95%;
+  }
+  #page_TrainingSessions .search-icon {
+    color: transparent;
+  }
+  #page_TrainingSessions .favorite-btn {
+    top: 0.5%;
+    left: 85%;
+  }
+}

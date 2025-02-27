@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+:root {
+  /* changes values for Background pattern*/
+  --s: 300px; /* Control the size */
+  --c1: #000000;
+  --c2: #1e1e20;
+  --c3: #303030;
+}
+body {
+  /*Background pattern*/
+  background: repeating-conic-gradient(
+        from 30deg,
+        #0000 0 120deg,
+        var(--c3) 0 180deg
+      )
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+  background-color: #1e1e20; /* Fallback color */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Keyframe for animation */
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 1;
+    transform: translateY(-90px);
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0px);
+  }
+}
+.animation {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: 30%;
+  z-index: 100;
+}

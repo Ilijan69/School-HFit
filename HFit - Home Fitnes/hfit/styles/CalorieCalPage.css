@@ -1,0 +1,169 @@
+#page_CalorieCalculator .content {
+  width: 100%;
+  top: 50%;
+  color: white;
+  text-align: left;
+}
+#page_CalorieCalculator h1 {
+  width: 100%;
+  top: 50%;
+  color: white;
+  text-align: center;
+  margin-bottom: 3%;
+}
+#page_CalorieCalculator .calculator-container {
+  background: #1e1e20;
+  border-radius: 15px;
+  border: #fff solid 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  position: absolute; /* Use absolute positioning */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Offset by half its width and height */
+  padding: 25px; /* Add some padding */
+}
+/*Generl inputs styles*/
+#page_CalorieCalculator input[type="number"],
+#page_CalorieCalculator select {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 3%;
+  background-color: #1e1e20;
+  color: white;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+}
+#page_CalorieCalculator input::placeholder {
+  color: #aaa;
+}
+
+/*Male or Female styling*/
+#page_CalorieCalculator .gender-container {
+  display: flex;
+  width: 400px; /* Adjust as needed */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 5%;
+  color: white;
+}
+#page_CalorieCalculator input[type="radio"] {
+  display: none;
+}
+#page_CalorieCalculator .gender-label {
+  flex: 1;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+#page_CalorieCalculator .gender-label:hover {
+  background-color: #333336;
+}
+#page_CalorieCalculator .gender-label.selected {
+  background-color: #1e4c98; /* Blue background for selected */
+  color: white; /* White text for contrast */
+}
+
+#page_CalorieCalculator #female {
+  margin-left: 3%;
+}
+#page_CalorieCalculator .form-group {
+  margin-bottom: 2%;
+}
+#page_CalorieCalculator .form-group-selector {
+  width: 106%;
+}
+#page_CalorieCalculator .form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/*Buttons styling*/
+#page_CalorieCalculator button {
+  width: 50%;
+  padding: 4% 0;
+  text-align: center;
+  margin: 1% 3%;
+  border-radius: 10px;
+  font-weight: bold;
+  border: 2px solid #2922a5;
+  background: #1e4c98;
+  color: white;
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s, border 0.5s;
+}
+#page_CalorieCalculator span {
+  background: #3275e2;
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  transition: 0.5s;
+}
+#page_CalorieCalculator .calculate_button_text {
+  position: relative;
+  z-index: 2;
+}
+#page_CalorieCalculator button:hover span {
+  width: 100%;
+}
+#page_CalorieCalculator button:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s;
+}
+/* clear Button*/
+#page_CalorieCalculator #clear_button {
+  background-color: rgb(188, 37, 37);
+  border: 2px solid rgb(151, 30, 30);
+}
+#page_CalorieCalculator .clear_button_span {
+  background: rgb(238, 47, 47);
+}
+#page_CalorieCalculator .reset_button_text {
+  position: relative;
+  z-index: 2;
+}
+
+/*Error message styling*/
+#page_CalorieCalculator .error-message {
+  color: red; 
+  font-size: 18px; 
+  text-align: center; 
+  margin-bottom: 5%; 
+  font-weight: bold; 
+}
+
+@media (max-width: 768px) {
+  #page_CalorieCalculator .calculator-container {
+    width: 75%;
+    max-width: none;
+    padding: 20px;
+  }
+  #page_CalorieCalculator .gender-container {
+    width: 100%;
+  }
+  #page_CalorieCalculator input[type="number"],
+  #page_CalorieCalculator select {
+    width: 95%;
+  }
+  #page_CalorieCalculator button {
+    width: 100%;
+    margin: 10px 0;
+  }
+  #page_CalorieCalculator .error-message {
+    bottom: -60%;
+  }
+}
+
+
