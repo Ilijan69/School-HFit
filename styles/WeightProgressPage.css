@@ -10,6 +10,8 @@
   position: absolute;
   left: 40%;
   bottom: 15%;
+  margin-top: 60px; /* Add margin to prevent overlap with navbar */
+  max-height: 80vh; /* Ensure it doesn't exceed viewport height */
 }
 #page_WeightProgress h1 {
   font-size: 24px;
@@ -183,6 +185,8 @@
     bottom: 2.5%;
     padding: 10px;
     transform: translateY(-40vh);
+    margin-top: 80px; /* Adjust margin for smaller screens */
+    max-height: 80vh; /* Ensure it doesn't exceed viewport height */
   }
   #page_WeightProgress h1 {
     font-size: 18px;

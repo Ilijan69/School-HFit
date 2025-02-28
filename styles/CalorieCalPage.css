@@ -22,6 +22,8 @@
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Offset by half its width and height */
   padding: 25px; /* Add some padding */
+  margin-top: 60px; /* Add margin to prevent overlap with navbar */
+  max-height: 80vh; /* Ensure it doesn't exceed viewport height */
 }
 /*Generl inputs styles*/
 #page_CalorieCalculator input[type="number"],
@@ -148,7 +150,9 @@
   #page_CalorieCalculator .calculator-container {
     width: 75%;
     max-width: none;
-    padding: 20px;
+    padding: 20px; 
+    margin: auto;
+    max-height: 80vh; /* Ensure it doesn't exceed viewport height */
   }
   #page_CalorieCalculator .gender-container {
     width: 100%;

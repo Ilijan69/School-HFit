@@ -214,6 +214,9 @@ html, body {
 }
 
 @media (max-width: 768px) {
+  #page_Index .banner {
+    opacity: 50%;
+  }
   #page_Index .content h1 {
     font-size: 35px;
   }
