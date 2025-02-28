@@ -13,14 +13,14 @@ footer {
   /* Adjusting the vertical-rectangle for smaller screens */
   @media (max-width: 768px) {
     footer{
-      bottom: -162%;
+      bottom: -15\60vh;
       width: 100%;
     }
   }
   
   @media (max-width: 480px) {
     footer{
-      bottom: -172%;
+      bottom: -160vh;
       width: 100%;
       height: 6%;
     }

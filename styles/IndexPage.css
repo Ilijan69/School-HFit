@@ -217,6 +217,13 @@ html, body {
   #page_Index .content h1 {
     font-size: 35px;
   }
+  #page_Index .content p {
+    margin: 20px auto;
+    font-size: 1rem;
+    font-weight: 0;
+    line-height: 20px;
+  }
+
   #page_Index button {
     width: 40%;
     font-size: 80%;
@@ -245,70 +252,79 @@ html, body {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -1325px;
+    bottom: -160vh;
+    padding: 3% 0;
   }
   #page_Index #calorie_button {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -725px;
+    bottom: -72vh;
+    padding: 3% 0;
   }
   #page_Index #weight_button {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -1025px;
+    bottom: -116vh;
+    padding: 3% 0;
   }
 
   #page_Index .calorie_rectangle{
     width: 90%;
+    height: 23rem;
     left: 2.5%;
-    bottom: -650px;
+    bottom: -700px;
   }
   #page_Index .weight_rectangle{
     width: 90%;
+    height: 23rem;
     left: 2.5%;
-    bottom: -950px;
+    bottom: -1100px;
   }
   #page_Index .train_rectangle {
     width: 90%;
+    height: 23rem;
     left: 2.5%;
-    bottom: -1250px;
+    bottom: -1500px;
   }
   #page_Index .calorie_text{
     font-size: 10px;
     left: 10%;
     text-align: center;
+    width: 80%;
   }
   #page_Index .weight_text{
     font-size: 10px;
     left: 10%;
+    bottom: 13vh;
     width: 80%;
     text-align: center;
   }
   #page_Index .train_text {
     font-size: 10px;
     left: 10%;
+    bottom: 13vh;
     width: 80%;
     text-align: center;
   }
   #page_Index .calorie_image{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     left: 10%;
-    bottom: -720px;
+    bottom: -650px;
   }
   #page_Index .weight_image{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     left: 10%;
-    bottom: -1025px;
+    bottom: -1050px;
   }
   #page_Index .train_image {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     left: 10%;
-    bottom: -1325px;
+    bottom: -1450px;
   }
 }
 

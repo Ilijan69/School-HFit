@@ -367,7 +367,7 @@ const TrainingSessionsPage = () => {
                 onClick={() => setShowForm((prev) => !prev)}
               >
                 <span></span>
-                {showForm ? "Затвори" : "Добави Тренировка"}
+                {showForm ? "Затвори" : "Добави"}
               </button>
             </div>
           )}
