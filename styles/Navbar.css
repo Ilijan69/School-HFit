@@ -272,7 +272,7 @@ button:hover {
     align-items: center;
     padding: 2% 0;
     height: auto;
-    position: relative;
+    position: absolute;
   }
 
   .logo {
