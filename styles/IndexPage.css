@@ -252,21 +252,21 @@ html, body {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -160vh;
+    bottom: -1460px;
     padding: 3% 0;
   }
   #page_Index #calorie_button {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -72vh;
+    bottom: -660px;
     padding: 3% 0;
   }
   #page_Index #weight_button {
     width: 60%;
     font-size: 70%;
     left: 25%;
-    bottom: -116vh;
+    bottom: -1060px;
     padding: 3% 0;
   }
 
