@@ -22,7 +22,7 @@
 .redirects ul li {
   list-style: none;
   display: inline-block;
-  margin: -10px 10px;
+  margin: -10px 17px;
   position: relative;
 }
 .redirects ul li a.active-link {
@@ -272,7 +272,7 @@ button:hover {
     align-items: center;
     padding: 2% 0;
     height: auto;
-    position: absolute;
+    position: fixed;
   }
 
   .logo {
