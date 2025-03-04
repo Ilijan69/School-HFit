@@ -65,24 +65,24 @@ export const loginWithUsernameOrEmail = async (identifier: string, password: str
 
 export const signInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
+    const result = await signInWithPopup(auth, googleProvider)
+    const user = result.user
 
     // Check if this user already exists in Firestore
-    const userDocRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(userDocRef);
+    const userDocRef = doc(db, "users", user.uid)
+    const docSnap = await getDoc(userDocRef)
 
     if (!docSnap.exists()) {
       // This is a new user, create a document in Firestore
-      const username = user.displayName || user.email?.split("@")[0] || "User ";
-      const email = user.email || "";
+      const username = user.displayName || user.email?.split("@")[0] || "User"
+      const email = user.email || ""
 
       // Default gender to "Not specified" for Google sign-ins
-      const gender = "Not specified";
+      const gender = "Not specified"
 
       // Check if this is an admin email
-      const isAdmin = email === "ilijan.kurshumov@gmail.com";
-      const role = isAdmin ? "admin" : "user";
+      const isAdmin = email === "ilijan.kurshumov@gmail.com"
+      const role = isAdmin ? "admin" : "user"
 
       await setDoc(userDocRef, {
         username,
@@ -91,23 +91,13 @@ export const signInWithGoogle = async () => {
         createdAt: new Date(),
         role,
         authProvider: "google",
-      });
+      })
     }
 
-    return user;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      // Now you can safely access error.message
-      if (error.message === 'auth/popup-closed-by-user') {
-        console.error("The popup was closed before completing the sign-in process.");
-        alert("The sign-in popup was closed. Please try again.");
-      } else {
-        console.error("Error signing in with Google:", error.message);
-      }
-    } else {
-      console.error("An unknown error occurred:", error);
-    }
-    throw error;
+    return user
+  } catch (error) {
+    console.error("Error signing in with Google:", error)
+    throw error
   }
 }
 
