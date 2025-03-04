@@ -58,8 +58,13 @@ function Login() {
     try {
       setIsLoading(true)
       setError(null)
-      await signInWithGoogle()
-      router.push("/")
+  
+      const user = await signInWithGoogle()
+      if (user) {
+        router.push("/") // Redirect only if a user is returned
+      } else {
+        setError("Google login failed. Please try again.")
+      }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message)
