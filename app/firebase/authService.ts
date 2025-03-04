@@ -5,7 +5,8 @@ import {
   signOut,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
 } from "firebase/auth"
 import { setDoc, doc, collection, query, where, getDocs, getDoc } from "firebase/firestore"
 
@@ -65,36 +66,46 @@ export const loginWithUsernameOrEmail = async (identifier: string, password: str
 
 export const signInWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, googleProvider)
-    const user = result.user
+    // Start Google sign-in with redirect
+    await signInWithRedirect(auth, googleProvider)
 
-    // Check if this user already exists in Firestore
-    const userDocRef = doc(db, "users", user.uid)
-    const docSnap = await getDoc(userDocRef)
+    // After redirect, handle the result in the current page
+    const result = await getRedirectResult(auth)
 
-    if (!docSnap.exists()) {
-      // This is a new user, create a document in Firestore
-      const username = user.displayName || user.email?.split("@")[0] || "User"
-      const email = user.email || ""
+    if (result) {
+      const user = result.user
 
-      // Default gender to "Not specified" for Google sign-ins
-      const gender = "Not specified"
+      // Check if this user already exists in Firestore
+      const userDocRef = doc(db, "users", user.uid)
+      const docSnap = await getDoc(userDocRef)
 
-      // Check if this is an admin email
-      const isAdmin = email === "ilijan.kurshumov@gmail.com"
-      const role = isAdmin ? "admin" : "user"
+      if (!docSnap.exists()) {
+        // This is a new user, create a document in Firestore
+        const username = user.displayName || user.email?.split("@")[0] || "User"
+        const email = user.email || ""
 
-      await setDoc(userDocRef, {
-        username,
-        email,
-        gender,
-        createdAt: new Date(),
-        role,
-        authProvider: "google",
-      })
+        // Default gender to "Not specified" for Google sign-ins
+        const gender = "Male" // Default
+
+        // Check if this is an admin email
+        const isAdmin = email === "ilijan.kurshumov@gmail.com"
+        const role = isAdmin ? "admin" : "user"
+
+        await setDoc(userDocRef, {
+          username,
+          email,
+          gender,
+          createdAt: new Date(),
+          role,
+          authProvider: "google",
+        })
+      }
+
+      return user // Return the authenticated user
+    } else {
+      // Handle the case when result is null (if sign-in was not completed)
+      throw new Error("Google sign-in was not completed.")
     }
-
-    return user
   } catch (error) {
     console.error("Error signing in with Google:", error)
     throw error
@@ -120,4 +131,3 @@ export const getUserRole = async (uid: string) => {
     throw new Error("User not found")
   }
 }
-
