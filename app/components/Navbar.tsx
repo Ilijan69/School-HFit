@@ -145,7 +145,7 @@ function NavBar() {
         ) : (
           <div className="user-container" onClick={(e) => e.stopPropagation()}>
             <div className="avatar-container" onClick={togglePopup}>
-              <p className="greeting">Здравей, {user.displayName}</p>
+              <p className="greeting">Здравей, {user.displayName ? user.displayName.split(" ")[0] : "User"}</p>
               {gender === "Male" && (
                 <Image src="/Pics/male_pfp.png" className="avatar" width={45} height={45} alt="Male Avatar" />
               )}

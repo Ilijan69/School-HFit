@@ -87,10 +87,8 @@
   height: 100%;
   width: 0%;
   border-radius: 10px;
-  position: absolute;
   left: 0;
   bottom: 0;
-  z-index: -1;
   transition: 0.5s;
 }
 #page_LogInForm button:hover span {
@@ -106,6 +104,30 @@
     font-size: 18px; 
     text-align: center;
     font-weight: bold; 
+}
+/*Google button*/
+#page_LogInForm .divider {
+  display: flex;
+}
+#page_LogInForm .divider::before,
+#page_LogInForm .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+#page_LogInForm .google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e61010;
+  border: #ef2424;
+}
+#page_LogInForm .google-button:hover {
+  background-color: #ef2424;
+}
+#page_LogInForm .google-icon {
+  margin-right: 20px;
+  font-size: 18px;
 }
 
 /* Responsive Adjustments */

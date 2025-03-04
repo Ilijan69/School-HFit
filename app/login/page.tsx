@@ -113,12 +113,10 @@ function Login() {
           </button>
 
           <div className="divider">
-            <span>или</span>
           </div>
 
           <button onClick={handleGoogleSignIn} className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
-            <span></span>
             {isLoading ? "Зареждане..." : "Влизане с Google"}
           </button>
         </form>

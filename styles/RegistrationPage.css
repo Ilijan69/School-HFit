@@ -102,10 +102,8 @@
   height: 100%;
   width: 0%;
   border-radius: 10px;
-  position: absolute;
   left: 0;
   bottom: 0;
-  z-index: -1;
   transition: 0.5s;
 }
 #page_RegistrationForm button:hover span {
@@ -115,6 +113,31 @@
   transform: scale(1.05);
   transition: transform 0.5s;
 }
+/*Google button*/
+#page_RegistrationForm .divider {
+  display: flex;
+}
+#page_RegistrationForm .divider::before,
+#page_RegistrationForm .divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+#page_RegistrationForm .google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e61010;
+  border: #ef2424;
+}
+#page_RegistrationForm .google-button:hover {
+  background-color: #ef2424;
+}
+#page_RegistrationForm .google-icon {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
