@@ -90,7 +90,14 @@ export default function Register() {
       router.push("/")
     } catch (error) {
       if (error instanceof Error) {
-        setError(error.message)
+        // Check if the error is due to the popup being closed by the user
+        if (error.message.includes("auth/popup-closed-by-user")) {
+          // This is not really an error, just a user action
+          console.log("Sign-in popup was closed")
+          // No need to show an error message for this case
+        } else {
+          setError(error.message)
+        }
       } else {
         setError("An unknown error occurred during Google sign-in.")
       }

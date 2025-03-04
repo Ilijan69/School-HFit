@@ -6,6 +6,8 @@ import {
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
 } from "firebase/auth"
 import { setDoc, doc, collection, query, where, getDocs, getDoc } from "firebase/firestore"
 
@@ -97,6 +99,62 @@ export const signInWithGoogle = async () => {
     return user
   } catch (error) {
     console.error("Error signing in with Google:", error)
+    throw error
+  }
+}
+
+// Add this new function for redirect-based sign-in
+export const signInWithGoogleRedirect = async () => {
+  try {
+    await signInWithRedirect(auth, googleProvider)
+    // Note: The result will be handled when the page loads after redirect
+    // using getRedirectResult()
+  } catch (error) {
+    console.error("Error initiating Google sign-in redirect:", error)
+    throw error
+  }
+}
+
+// Add this function to handle the redirect result
+export const handleGoogleRedirectResult = async () => {
+  try {
+    const result = await getRedirectResult(auth)
+
+    if (result) {
+      const user = result.user
+
+      // Check if this user already exists in Firestore
+      const userDocRef = doc(db, "users", user.uid)
+      const docSnap = await getDoc(userDocRef)
+
+      if (!docSnap.exists()) {
+        // This is a new user, create a document in Firestore
+        const username = user.displayName || user.email?.split("@")[0] || "User"
+        const email = user.email || ""
+
+        // Default gender to "Not specified" for Google sign-ins
+        const gender = "Not specified"
+
+        // Check if this is an admin email
+        const isAdmin = email === "ilijan.kurshumov@gmail.com"
+        const role = isAdmin ? "admin" : "user"
+
+        await setDoc(userDocRef, {
+          username,
+          email,
+          gender,
+          createdAt: new Date(),
+          role,
+          authProvider: "google",
+        })
+      }
+
+      return user
+    }
+
+    return null // No redirect result
+  } catch (error) {
+    console.error("Error handling Google redirect result:", error)
     throw error
   }
 }
