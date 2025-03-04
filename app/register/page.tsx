@@ -174,6 +174,7 @@ export default function Register() {
 
           <button onClick={handleGoogleSignIn} className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
+            <span></span>
             {isLoading ? "Зареждане..." : "Регистрация с Google"}
           </button>
         </form>

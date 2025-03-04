@@ -58,13 +58,8 @@ function Login() {
     try {
       setIsLoading(true)
       setError(null)
-  
-      const user = await signInWithGoogle()
-      if (user) {
-        router.push("/") // Redirect only if a user is returned
-      } else {
-        setError("Google login failed. Please try again.")
-      }
+      await signInWithGoogle()
+      router.push("/")
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message)
@@ -122,6 +117,7 @@ function Login() {
 
           <button onClick={handleGoogleSignIn} className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
+            <span></span>
             {isLoading ? "Зареждане..." : "Влизане с Google"}
           </button>
         </form>
