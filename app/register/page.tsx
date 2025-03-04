@@ -1,11 +1,11 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import type React from "react"
 
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"
 import Image from "next/image"
 import "/styles/RegistrationPage.css"
-import { registerWithEmail, signInWithGoogleRedirect, handleGoogleRedirectResult } from "../firebase/authService"
+import { registerWithEmail, signInWithGoogle } from "../firebase/authService"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import dynamic from "next/dynamic"
@@ -21,29 +21,6 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-
-  // Check for redirect result when component mounts
-  useEffect(() => {
-    const checkRedirectResult = async () => {
-      try {
-        setIsLoading(true)
-        const user = await handleGoogleRedirectResult()
-        if (user) {
-          router.push("/")
-        }
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error.message)
-        } else {
-          setError("An unknown error occurred during Google sign-in.")
-        }
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    checkRedirectResult()
-  }, [router])
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -109,15 +86,16 @@ export default function Register() {
     try {
       setIsLoading(true)
       setError(null)
-      await signInWithGoogleRedirect()
-      // No need to navigate here as the page will redirect to Google
+      await signInWithGoogle()
+      router.push("/")
     } catch (error) {
-      setIsLoading(false)
       if (error instanceof Error) {
         setError(error.message)
       } else {
         setError("An unknown error occurred during Google sign-in.")
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 

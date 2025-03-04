@@ -5,8 +5,7 @@ import {
   signOut,
   updateProfile,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
 } from "firebase/auth"
 import { setDoc, doc, collection, query, where, getDocs, getDoc } from "firebase/firestore"
 
@@ -64,62 +63,40 @@ export const loginWithUsernameOrEmail = async (identifier: string, password: str
   return signInWithEmailAndPassword(auth, email, password)
 }
 
-// Replace signInWithGoogle with signInWithGoogleRedirect
-export const signInWithGoogleRedirect = async () => {
+export const signInWithGoogle = async () => {
   try {
-    // Add scopes for the Google provider if needed
-    googleProvider.addScope("profile")
-    googleProvider.addScope("email")
+    const result = await signInWithPopup(auth, googleProvider)
+    const user = result.user
 
-    // Start the redirect flow
-    await signInWithRedirect(auth, googleProvider)
-    // The page will redirect to Google and then back to your app
-  } catch (error) {
-    console.error("Error initiating Google sign-in redirect:", error)
-    throw error
-  }
-}
+    // Check if this user already exists in Firestore
+    const userDocRef = doc(db, "users", user.uid)
+    const docSnap = await getDoc(userDocRef)
 
-// Function to handle the redirect result
-export const handleGoogleRedirectResult = async () => {
-  try {
-    const result = await getRedirectResult(auth)
+    if (!docSnap.exists()) {
+      // This is a new user, create a document in Firestore
+      const username = user.displayName || user.email?.split("@")[0] || "User"
+      const email = user.email || ""
 
-    if (result) {
-      const user = result.user
+      // Default gender to "Not specified" for Google sign-ins
+      const gender = "Not specified"
 
-      // Check if this user already exists in Firestore
-      const userDocRef = doc(db, "users", user.uid)
-      const docSnap = await getDoc(userDocRef)
+      // Check if this is an admin email
+      const isAdmin = email === "ilijan.kurshumov@gmail.com"
+      const role = isAdmin ? "admin" : "user"
 
-      if (!docSnap.exists()) {
-        // This is a new user, create a document in Firestore
-        const username = user.displayName || user.email?.split("@")[0] || "User"
-        const email = user.email || ""
-
-        // Default gender to "Not specified" for Google sign-ins
-        const gender = "Not specified"
-
-        // Check if this is an admin email
-        const isAdmin = email === "ilijan.kurshumov@gmail.com"
-        const role = isAdmin ? "admin" : "user"
-
-        await setDoc(userDocRef, {
-          username,
-          email,
-          gender,
-          createdAt: new Date(),
-          role,
-          authProvider: "google",
-        })
-      }
-
-      return user
+      await setDoc(userDocRef, {
+        username,
+        email,
+        gender,
+        createdAt: new Date(),
+        role,
+        authProvider: "google",
+      })
     }
 
-    return null // No redirect result
+    return user
   } catch (error) {
-    console.error("Error handling Google redirect result:", error)
+    console.error("Error signing in with Google:", error)
     throw error
   }
 }
