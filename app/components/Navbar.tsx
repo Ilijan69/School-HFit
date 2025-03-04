@@ -122,7 +122,9 @@ function NavBar() {
   return (
     <header>
       <nav className="navbar" onClick={closePopup}>
+        <Link href="/">
         <Image src="/Pics/HFit logo.png" width={1000} height={40} className="logo" alt="HF_logo" />
+        </Link>
         {loading ? (
           <div className="auth-container">{/* Show a subtle loading indicator or nothing while loading */}</div>
         ) : !user ? (
