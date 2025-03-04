@@ -1,12 +1,12 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import type React from "react"
 
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"
 import Image from "next/image"
 import Link from "next/link"
 import "/styles/LoginPage.css"
-import { loginWithUsernameOrEmail, signInWithGoogle } from "../firebase/authService"
+import { loginWithUsernameOrEmail, signInWithGoogleRedirect, handleGoogleRedirectResult } from "../firebase/authService"
 import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 
@@ -19,6 +19,29 @@ function Login() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+
+  // Check for redirect result when component mounts
+  useEffect(() => {
+    const checkRedirectResult = async () => {
+      try {
+        setIsLoading(true)
+        const user = await handleGoogleRedirectResult()
+        if (user) {
+          router.push("/")
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message)
+        } else {
+          setError("An unknown error occurred during Google sign-in.")
+        }
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    checkRedirectResult()
+  }, [router])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -58,16 +81,15 @@ function Login() {
     try {
       setIsLoading(true)
       setError(null)
-      await signInWithGoogle()
-      router.push("/")
+      await signInWithGoogleRedirect()
+      // No need to navigate here as the page will redirect to Google
     } catch (error) {
+      setIsLoading(false)
       if (error instanceof Error) {
         setError(error.message)
       } else {
         setError("An unknown error occurred during Google sign-in.")
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 
