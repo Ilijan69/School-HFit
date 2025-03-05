@@ -89,7 +89,7 @@ export const signInWithGoogle = async () => {
       await saveGoogleUserToFirestore(result.user);
       
       return result.user;
-    } catch (error) {
+    } catch (error:any) {
       console.log("Popup failed, error:", error);
       
       // If popup fails, try redirect
@@ -108,7 +108,7 @@ export const signInWithGoogle = async () => {
       // For other errors, throw them
       throw error;
     }
-  } catch (error) {
+  } catch (error:any) {
     console.error("Google sign-in error:", error);
     localStorage.setItem('googleAuthError', error.message || 'Unknown error');
     throw error;
@@ -152,7 +152,7 @@ export const handleRedirectResult = async () => {
 };
 
 // Helper function to save Google user to Firestore
-const saveGoogleUserToFirestore = async (user) => {
+const saveGoogleUserToFirestore = async (user:any) => {
   if (!user) return;
   
   try {
