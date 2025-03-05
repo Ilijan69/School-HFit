@@ -248,7 +248,7 @@ button:hover {
   width: 60%;
 }
 .confirm-button {
-  margin-left: 6%;
+  margin-left: -1%;
   padding: 5% 10%;
 }
 .cancel-button {

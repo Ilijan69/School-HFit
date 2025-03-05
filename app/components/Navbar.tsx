@@ -78,7 +78,7 @@ function NavBar() {
 
   const handleSwitchAccount = async (email: string) => {
     if (!password) {
-      setErrorMessage("A password is needed!");
+      setErrorMessage("Нужна е парола");
       return;
     }
 
@@ -95,9 +95,9 @@ function NavBar() {
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         if (error.code === "auth/wrong-password") {
-          setErrorMessage("Incorrect password");
+          setErrorMessage("Неправилна парола");
         } else {
-          setErrorMessage("Incorrect password");
+          setErrorMessage("Неправилна парола");
         }
       } else if (error instanceof Error) {
         setErrorMessage("An unexpected error occurred.");
@@ -159,7 +159,7 @@ function NavBar() {
         ) : (
           <div className="user-container" onClick={(e) => e.stopPropagation()}>
             <div className="avatar-container" onClick={togglePopup}>
-              <p className="greeting">Здравей, {user.displayName}</p>
+              <p className="greeting">Здравей, {user.displayName?.split(" ")[0]}</p>
               {gender === "Male" && (
                 <Image
                   src="/Pics/male_pfp.png"
@@ -246,7 +246,7 @@ function NavBar() {
                                 className="cancel-button"
                                 onClick={handleCancel}
                               >
-                                <span></span> Отказ
+                                <span></span> Откажи
                               </button>
                             </div>
                           </div>

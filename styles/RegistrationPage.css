@@ -20,14 +20,14 @@
   text-align: center;
   margin-bottom: 20px;
 }
-#page_RegistrationForm label {
+#page_RegistrationForm p {
   display: block;
   width: 100%;
   color: white;
   font-size: 20px;
   text-align: center;
 }
-.registerform label a {
+.registerform p a {
   color: #1e90ff; 
   text-decoration: none; 
   font-weight: bold;

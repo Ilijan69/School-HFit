@@ -44,20 +44,20 @@
   color: black;
   font-size: 20px;
 }
-#page_LogInForm label {
+#page_LogInForm p {
   display: block;
   font-size: 20px;
   color: white;
   margin-bottom: 5px;
   text-align: center;
 }
-#page_LogInForm label a {
+#page_LogInForm p a {
   color: #1e90ff; 
   text-decoration: none; 
   font-weight: bold;
   transition: color 0.3s ease, text-decoration 0.3s ease; 
 }
-#page_LogInForm label a:hover {
+#page_LogInForm p a:hover {
   color: #1a67b5; 
 }
 #page_LogInForm .form-actions {

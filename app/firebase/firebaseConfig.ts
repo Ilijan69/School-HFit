@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getAuth } from "firebase/auth"
+import { getAuth, setPersistence, browserLocalPersistence, inMemoryPersistence } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 // Log environment variables (without exposing values)
@@ -25,6 +25,20 @@ console.log("Firebase initialized successfully")
 // Initialize Firebase services
 export const auth = getAuth(app)
 export const db = getFirestore(app)
+
+// Set persistence - use LOCAL for desktop/laptop browsers and IN_MEMORY for mobile to avoid storage issues
+const isMobile = typeof window !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+// Choose the appropriate persistence based on device type
+const persistenceType = isMobile ? inMemoryPersistence : browserLocalPersistence;
+
+setPersistence(auth, persistenceType)
+  .then(() => {
+    console.log(`Firebase auth persistence set to ${isMobile ? 'IN_MEMORY' : 'LOCAL'}`);
+  })
+  .catch((error) => {
+    console.error("Error setting persistence:", error);
+  });
 
 // Export the app instance
 export default app
