@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import "/styles/RegistrationPage.css";
 import type React from "react"
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"
 import Image from "next/image"
