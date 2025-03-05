@@ -113,7 +113,6 @@ export default function Login() {
 
           <button type="button" className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
-            <span></span>
             {isLoading ? "Зареждане..." : "Влизане с Google"}
           </button>
         </form>

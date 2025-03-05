@@ -143,16 +143,15 @@ function NavBar() {
         </Link> 
         {!user ? (
           <div className="auth-container">
-            <p className="welcome-text">Welcome To HFit</p>
             <div className="buttons-container">
               <Link href="/register">
                 <button className="register-button">
-                  <span></span> Register
+                  <span></span> Регистрация
                 </button>
               </Link>
               <Link href="/login">
                 <button className="login-button">
-                  <span></span> Log in
+                  <span></span> Влизане
                 </button>
               </Link>
             </div>
@@ -160,7 +159,7 @@ function NavBar() {
         ) : (
           <div className="user-container" onClick={(e) => e.stopPropagation()}>
             <div className="avatar-container" onClick={togglePopup}>
-              <p className="greeting">Hello, {user.displayName}</p>
+              <p className="greeting">Здравей, {user.displayName}</p>
               {gender === "Male" && (
                 <Image
                   src="/Pics/male_pfp.png"
@@ -186,7 +185,7 @@ function NavBar() {
                   ×
                 </button>
                 <div className="accounts-list">
-                  <p>Used Accounts:</p>
+                  <p>Използвани акаунти:</p>
                   <ul>
                     {accounts.map((account, index) => (
                       <li
@@ -232,7 +231,7 @@ function NavBar() {
                                 setPassword(e.target.value);
                                 setErrorMessage("");
                               }}
-                              placeholder="Password"
+                              placeholder="Парола"
                             />
                             <div className="popup-buttons">
                               <button
@@ -241,13 +240,13 @@ function NavBar() {
                                   handleSwitchAccount(account.email)
                                 }
                               >
-                                <span></span> Confirm
+                                <span></span> Потваърди
                               </button>
                               <button
                                 className="cancel-button"
                                 onClick={handleCancel}
                               >
-                                <span></span> Cancel
+                                <span></span> Отказ
                               </button>
                             </div>
                           </div>
@@ -256,7 +255,7 @@ function NavBar() {
                     ))}
                   </ul>
                   <button onClick={handleLogout} className="logout-button">
-                    <span></span> Log out
+                    <span></span> Излез от акаунт
                   </button>
                 </div>
               </div>
@@ -267,12 +266,12 @@ function NavBar() {
           <ul>
             <li>
               <Link href="/" className="active-link">
-                Home
+                Начало
               </Link>
             </li>
             <li>
               <Link href="/calorie_calculator" className="active-link">
-                Calorie Calculator
+                Калколатор
               </Link>
             </li>
             <li>
@@ -280,7 +279,7 @@ function NavBar() {
                 href="/weight_progress"
                 className={user ? "active-link" : "inactive-link"}
               >
-                Weight Progress
+                Теглови Прогреси
               </Link>
             </li>
             <li>
@@ -288,7 +287,7 @@ function NavBar() {
                 href="/training_sessions"
                 className={user ? "active-link" : "inactive-link"}
               >
-                Training Sessions
+                Тренировачни Упражнения
               </Link>
             </li>
           </ul>
