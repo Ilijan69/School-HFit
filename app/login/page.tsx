@@ -1,18 +1,16 @@
 "use client"
 import { useState } from "react"
 import type React from "react"
-
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"
 import Image from "next/image"
 import Link from "next/link"
-import "/styles/LoginPage.css"
-import { loginWithUsernameOrEmail, signInWithGoogle } from "../firebase/authService"
+import { loginWithUsernameOrEmail} from "../firebase/authService"
 import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 
-const PageTransition = dynamic(() => import("../components/PageTransition"))
+const PageTransition = dynamic(() => import("../components/PageTransition"), { ssr: false })
 
-function Login() {
+export default function Login() {
   const [identifier, setIdentifier] = useState("") // For email or username
   const [password, setPassword] = useState("")
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -36,42 +34,26 @@ function Login() {
 
     try {
       setIsLoading(true)
-      await loginWithUsernameOrEmail(identifier, password)
+      const userCredential = await loginWithUsernameOrEmail(identifier, password)
+      console.log("Login successful:", userCredential)
       router.push("/")
     } catch (error) {
+      console.error("Login error:", error)
       if (error instanceof Error) {
-        if (error.message.includes("auth/invalid-credential")) {
-          setError("Грешна парола")
+        if (
+          error.message.includes("auth/invalid-credential") ||
+          error.message.includes("auth/invalid-email") ||
+          error.message.includes("auth/user-not-found") ||
+          error.message.includes("auth/wrong-password")
+        ) {
+          setError("Грешно име/имейл или парола")
+        } else if (error.message === "Username not found") {
+          setError("Потребителското име не е намерено")
         } else {
           setError(error.message)
         }
       } else {
         setError("An unknown error occurred.")
-      }
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleGoogleSignIn = async (e: React.MouseEvent) => {
-    e.preventDefault()
-    try {
-      setIsLoading(true)
-      setError(null)
-      await signInWithGoogle()
-      router.push("/")
-    } catch (error) {
-      if (error instanceof Error) {
-        // Check if the error is due to the popup being closed by the user
-        if (error.message.includes("auth/popup-closed-by-user")) {
-          // This is not really an error, just a user action
-          console.log("Sign-in popup was closed")
-          // No need to show an error message for this case
-        } else {
-          setError(error.message)
-        }
-      } else {
-        setError("An unknown error occurred during Google sign-in.")
       }
     } finally {
       setIsLoading(false)
@@ -96,10 +78,16 @@ function Login() {
     <div id="page_LogInForm">
       <PageTransition>
         <Image src="/Pics/HFit logo.png" width={500} height={100} className="HFit Logo" alt="HFLogo" priority />
-        <form className="loginform">
+        <form className="loginform" onSubmit={handleLogin}>
           <h1>Влизане</h1>
           {error && <p className="error-message">{error}</p>}
-          <input type="text" value={identifier} onChange={handleIdentifierChange} placeholder="Име или Имейл" />
+          <input
+            type="text"
+            value={identifier}
+            onChange={handleIdentifierChange}
+            placeholder="Име или Имейл"
+            required
+          />
           <div className="password-container">
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
@@ -109,20 +97,20 @@ function Login() {
               value={password}
               onChange={handlePasswordChange}
               placeholder="Парола"
+              required
             />
           </div>
           <label>
-            Имате ли акаунт? Тогава се <Link href="/register">Регистрирай</Link>
+            Нямате акаунт? Тогава се <Link href="/register">Регистрирай</Link>
           </label>
-          <button onClick={handleLogin} disabled={isLoading}>
+          <button type="submit" disabled={isLoading}>
             <span></span>
             {isLoading ? "Зареждане..." : "Влизане"}
           </button>
 
-          <div className="divider">
-          </div>
+          <div className="divider"></div>
 
-          <button onClick={handleGoogleSignIn} className="google-button" disabled={isLoading}>
+          <button type="button" className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
             <span></span>
             {isLoading ? "Зареждане..." : "Влизане с Google"}
@@ -132,6 +120,4 @@ function Login() {
     </div>
   )
 }
-
-export default Login
 

@@ -1,16 +1,14 @@
 "use client"
 import { useState } from "react"
 import type React from "react"
-
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"
 import Image from "next/image"
-import "/styles/RegistrationPage.css"
-import { registerWithEmail, signInWithGoogle } from "../firebase/authService"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { registerWithEmail} from "../firebase/authService"
+import { useRouter } from "next/navigation"
 import dynamic from "next/dynamic"
 
-const PageTransition = dynamic(() => import("../components/PageTransition"))
+const PageTransition = dynamic(() => import("../components/PageTransition"), { ssr: false })
 
 export default function Register() {
   const [email, setEmail] = useState("")
@@ -64,9 +62,10 @@ export default function Register() {
     try {
       setIsLoading(true)
       const registeredUser = await registerWithEmail(email, password, username, gender)
-      if (registeredUser) await registeredUser.reload()
+      console.log("User registered successfully:", registeredUser)
       router.push("/")
     } catch (error) {
+      console.error("Registration error:", error)
       if (error instanceof Error) {
         if (error.message.includes("auth/email-already-in-use")) {
           setError("Този имейл е вече изпозлван")
@@ -75,31 +74,6 @@ export default function Register() {
         }
       } else {
         setError("An unknown error occurred.")
-      }
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleGoogleSignIn = async (e: React.MouseEvent) => {
-    e.preventDefault()
-    try {
-      setIsLoading(true)
-      setError(null)
-      await signInWithGoogle()
-      router.push("/")
-    } catch (error) {
-      if (error instanceof Error) {
-        // Check if the error is due to the popup being closed by the user
-        if (error.message.includes("auth/popup-closed-by-user")) {
-          // This is not really an error, just a user action
-          console.log("Sign-in popup was closed")
-          // No need to show an error message for this case
-        } else {
-          setError(error.message)
-        }
-      } else {
-        setError("An unknown error occurred during Google sign-in.")
       }
     } finally {
       setIsLoading(false)
@@ -135,21 +109,11 @@ export default function Register() {
     <div id="page_RegistrationForm">
       <PageTransition>
         <Image src="/Pics/HFit logo.png" width={500} height={100} className="HFit Logo" alt="HFLogo" priority />
-        <form className="registerform">
+        <form className="registerform" onSubmit={handleRegister}>
           <h1>Регистрация</h1>
           {error && <p className="error-message">{error}</p>}
-          <input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange} // Updated handler
-            placeholder="Име"
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={handleEmailChange} // Updated handler
-            placeholder="Имейл"
-          />
+          <input type="text" value={username} onChange={handleUsernameChange} placeholder="Име" required />
+          <input type="email" value={email} onChange={handleEmailChange} placeholder="Имейл" required />
           <div className="password-container">
             <span className="eye-icon" onClick={togglePasswordVisibility}>
               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
@@ -159,27 +123,24 @@ export default function Register() {
               value={password}
               onChange={handlePasswordChange}
               placeholder="Парола"
+              required
             />
           </div>
-          <select
-            value={gender}
-            onChange={handleGenderChange} // Updated handler
-          >
+          <select value={gender} onChange={handleGenderChange}>
             <option value="Male">Мъж</option>
             <option value="Female">Жена</option>
           </select>
           <label>
             Вече имате акаунт? Тогава <Link href="/login">Влез</Link>
           </label>
-          <button onClick={handleRegister} disabled={isLoading}>
+          <button type="submit" disabled={isLoading}>
             <span></span>
             {isLoading ? "Зареждане..." : "Регистрация"}
           </button>
 
-          <div className="divider">
-          </div>
+          <div className="divider"></div>
 
-          <button onClick={handleGoogleSignIn} className="google-button" disabled={isLoading}>
+          <button type="button" className="google-button" disabled={isLoading}>
             <FaGoogle className="google-icon" />
             <span></span>
             {isLoading ? "Зареждане..." : "Регистрация с Google"}
