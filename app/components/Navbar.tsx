@@ -10,6 +10,11 @@ import { auth, db } from "../firebase/firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"
 import { logout } from "../firebase/authService"
 
+function truncateName(name: string, maxLength: number) {
+  if (name.length <= maxLength) return name;
+  return name.slice(0, maxLength);
+}
+
 function NavBar() {
   const [user, setUser] = useState<User | null>(null)
   const [gender, setGender] = useState<"Male" | "Female" | null>(null)
@@ -145,13 +150,13 @@ function NavBar() {
         ) : (
           <div className="user-container" onClick={(e) => e.stopPropagation()}>
             <div className="avatar-container" onClick={togglePopup}>
-              <p className="greeting">Здравей, {user.displayName?.split(" ")[0]}</p>
-              {gender === "Male" && (
+            {gender === "Male" && (
                 <Image src="/Pics/male_pfp.png" className="avatar" width={45} height={45} alt="Male Avatar" />
               )}
               {gender === "Female" && (
                 <Image src="/Pics/femal_pfp.png" className="avatar" width={45} height={45} alt="Female Avatar" />
               )}
+              <p className="greeting">Здравей, {truncateName(user.displayName?.split(" ")[0] || "loading", 7)}</p>
             </div>
             {isPopupVisible && (
               <div className="popup">
