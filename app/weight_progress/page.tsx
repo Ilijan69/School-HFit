@@ -44,6 +44,33 @@ const WeightTracking: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchWeights = async () => {
+      if (!userId) return;
+
+      const q = query(collection(db, "weights"), where("userId", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        const docData = doc.data();
+        data.push({
+          id: doc.id,
+          weight: docData.weight,
+          date: docData.date.toDate(),
+        });
+      });
+
+      const sortedData = data
+        .sort((a, b) => b.date - a.date)
+        .slice(0, MAX_WEIGHTS);
+
+      setWeights(sortedData);
+    };
+
+    fetchWeights();
+  }, [userId]); // Only rerun when `userId` changes
+
   const handleAddWeight = async () => {
     if (weight === "" || weight <= 0 || weight >= 500) {
       setError("Невалидно тегло");
@@ -93,33 +120,6 @@ const WeightTracking: React.FC = () => {
       setError("There was an error adding your weight.");
     }
   };
-
-  useEffect(() => {
-    const fetchWeights = async () => {
-      if (!userId) return;
-
-      const q = query(collection(db, "weights"), where("userId", "==", userId));
-      const querySnapshot = await getDocs(q);
-
-      const data: any[] = [];
-      querySnapshot.forEach((doc) => {
-        const docData = doc.data();
-        data.push({
-          id: doc.id,
-          weight: docData.weight,
-          date: docData.date.toDate(),
-        });
-      });
-
-      const sortedData = data
-        .sort((a, b) => b.date - a.date)
-        .slice(0, MAX_WEIGHTS);
-
-      setWeights(sortedData);
-    };
-
-    fetchWeights();
-  }, [userId]); // Only rerun when `userId` changes
 
   const displayedWeights = displayAll
     ? weights
