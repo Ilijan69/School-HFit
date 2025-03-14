@@ -48,7 +48,7 @@ const WeightGraph: React.FC<WeightGraphProps> = ({ dates, weights }) => {
       },
       title: {
         display: true,
-        text: "Weight Tracking",
+        text: "",
       },
     },
   };
