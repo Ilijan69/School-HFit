@@ -174,7 +174,7 @@ const saveGoogleUserToFirestore = async (user:any) => {
       console.log("Creating new Google user in Firestore");
       
       // Check if this is an admin email
-      const isAdmin = user.email === "admin1001@gmail.com";
+      const isAdmin = user.email === "ilijan.kurshumov@gmail.com";
       
       // Add creation-specific fields
       const newUserData = {
