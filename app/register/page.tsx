@@ -74,9 +74,9 @@ export default function Register() {
       return
     }
 
-    if (!/^[a-zA-Z0-9]+$/.test(username)) {
-      setError("Името може да съдържа замо номера и букви")
-      return
+    if (!/^[\p{L}0-9]+$/u.test(username)) {
+      setError("Името може да съдържа само букви и числа");
+      return;
     }
 
     const isValidPassword = (password: string): string | null => {
