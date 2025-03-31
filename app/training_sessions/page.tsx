@@ -397,7 +397,7 @@ const TrainingSessionsPage = () => {
         </div>
 
         {/*Seacrch bar component */}
-        <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        <SearchBar searchQuery={searchQuery.trim()} onSearchChange={(query) => setSearchQuery(query.trim())} />
 
         {/*Instruction appearens*/}
         {instructionsModal && (
