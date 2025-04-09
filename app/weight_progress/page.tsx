@@ -280,73 +280,75 @@ const WeightTracking: React.FC = () => {
   return (
     <div id="page_WeightProgress">
       <PageTransition>
-        <div className="weight-text-container">
-          <Image
-            src="/Pics/news.png"
-            width={100}
-            height={100}
-            className="news-image"
-            alt="NW-image"
-          />
-          <p className="greetings">
-            Здравей, {username}
-            <br />
-            Тук можеш да следиш
-            <br />
-            килограмите и прогресa си
-          </p>
-          <div className="personalized-message">{generateMessage()}</div>
-        </div>
-        <div className="weight-container">
-          <h1>Графа за Тегло</h1>
-          <div className="input-container">
-            {error && <p className="error-message">{error}</p>}
-            <input
-              type="number"
-              value={weight}
-              onChange={(e) => {
-                const value = e.target.value;
-                const regex = /^\d{0,3}(\.\d{0,3})?$/;
-
-                if (regex.test(value)) {
-                  setWeight(value === "" ? "" : Number(value));
-                  setError("");
-                }
-              }}
-              placeholder="Въведи килограмите (кг)"
-              className="weight-input"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleAddWeight(); // Trigger the handleAddWeight function when Enter is pressed
-                }
-              }}
+        <div className="content-wrapper">
+          <div className="weight-text-container">
+            <Image
+              src="/Pics/news.png"
+              width={100}
+              height={100}
+              className="news-image"
+              alt="NW-image"
             />
-
-            <button onClick={handleAddWeight} className="submit-button">
-              <span></span>Добави
-            </button>
-            <button
-              onClick={() => setDisplayAll(!displayAll)}
-              className="toggle-button"
-            >
-              <span></span>
-              {displayAll ? "Обратно" : "Разшири"}
-            </button>
+            <p className="greetings">
+              Здравей, {username}
+              <br />
+              Тук можеш да следиш
+              <br />
+              килограмите и прогресa си
+            </p>
+            <div className="personalized-message">{generateMessage()}</div>
           </div>
+          <div className="weight-container">
+            <h1>Графа за Тегло</h1>
+            <div className="input-container">
+              {error && <p className="error-message">{error}</p>}
+              <input
+                type="number"
+                value={weight}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const regex = /^\d{0,3}(\.\d{0,3})?$/;
 
-          <WeightGraph
-            dates={displayedWeights
-              .map((entry) => entry.date.toLocaleDateString())
-              .reverse()} // Reverse the order of dates
-            weights={displayedWeights.map((entry) => entry.weight).reverse()} // Reverse the order of weights
-          />
-          {displayAll && (
-            <div className="stats">
-              <p>Най-високо: {highestWeight} кг</p>
-              <p>Най-ниско: {lowestWeight} кг</p>
-              <p>Средно: {averageWeight?.toFixed(2)} кг</p>
+                  if (regex.test(value)) {
+                    setWeight(value === "" ? "" : Number(value));
+                    setError("");
+                  }
+                }}
+                placeholder="Въведи килограмите (кг)"
+                className="weight-input"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAddWeight(); // Trigger the handleAddWeight function when Enter is pressed
+                  }
+                }}
+              />
+
+              <button onClick={handleAddWeight} className="submit-button">
+                <span></span>Добави
+              </button>
+              <button
+                onClick={() => setDisplayAll(!displayAll)}
+                className="toggle-button"
+              >
+                <span></span>
+                {displayAll ? "Обратно" : "Разшири"}
+              </button>
             </div>
-          )}
+
+            <WeightGraph
+              dates={displayedWeights
+                .map((entry) => entry.date.toLocaleDateString())
+                .reverse()} // Reverse the order of dates
+              weights={displayedWeights.map((entry) => entry.weight).reverse()} // Reverse the order of weights
+            />
+            {displayAll && (
+              <div className="stats">
+                <p>Най-високо: {highestWeight} кг</p>
+                <p>Най-ниско: {lowestWeight} кг</p>
+                <p>Средно: {averageWeight?.toFixed(2)} кг</p>
+              </div>
+            )}
+          </div>
         </div>
       </PageTransition>
     </div>

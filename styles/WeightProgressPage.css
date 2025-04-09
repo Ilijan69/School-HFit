@@ -1,253 +1,229 @@
-#page_WeightProgress .weight-container {
-  padding: -0.1%;
-  width: 50%;
-  height: 70%;
-  margin: 0 auto;
-  background-color: #ffffff; /* Dark background */
-  border-radius: 15px;
-  border: 5px solid #2922a5;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Consistent shadow effect */
-  position: absolute;
-  left: 40%;
-  bottom: 15%;
-  margin-top: 60px; /* Add margin to prevent overlap with navbar */
-  max-height: 80vh; /* Ensure it doesn't exceed viewport height */
+#page_WeightProgress {
+  padding: 20px;
+  margin-top: 60px;
 }
-#page_WeightProgress h1 {
-  font-size: 24px;
-  color: rgb(0, 0, 0); /* White text to match the dark theme */
-  text-align: center;
-  margin-bottom: 50px;
-  margin-top: 10px;
-}
-#page_WeightProgress .input-container {
+
+#page_WeightProgress .content-wrapper {
   display: flex;
   justify-content: center;
+  gap: clamp(20px, 3vw, 40px);
+  flex-direction: row-reverse;
+}
+
+#page_WeightProgress .weight-container {
+  width: min(800px, 65%);
+  min-height: 400px;
+  margin-top: 2%;
+  height: clamp(300px, 70vh, 800px);
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 5px solid #2922a5;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  padding: clamp(15px, 2vw, 25px);
+}
+
+#page_WeightProgress h1 {
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin: clamp(10px, 2vh, 20px) 0 clamp(30px, 5vh, 50px);
+}
+
+/* Input and Buttons Container */
+#page_WeightProgress .input-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: clamp(8px, 1vw, 15px);
+  margin-bottom: clamp(15px, 2vh, 25px);
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
 }
+
 #page_WeightProgress .weight-input {
-  padding: 10px;
-  width: 200px;
-  font-size: 16px;
+  width: clamp(180px, 30vw, 250px);
+  padding: 12px;
+  font-size: clamp(14px, 1.2vw, 16px);
   border-radius: 10px;
-  background-color: #ffffff; /* Dark input background */
-  color: black; /* White text inside input */
-  position: absolute;
-  left: 5%;
-  bottom: 85%;
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #2922a5;
 }
 
-
-/*Submit weight into graph button*/
+/* Button Styles */
 #page_WeightProgress button {
-  padding: 10px 20px;
-  background-color: #1e4c98; /* Matching button background */
-  color: white;
-  border: 2px solid #2922a5; /* Blue border */
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  overflow: hidden;
-  transition: transform 0.5s, border 0.5s;
-}
-#page_WeightProgress .submit-button {
-  position: absolute;
-  left: 5%;
-  bottom: 75%;
-}
-#page_WeightProgress button:hover {
+  padding: clamp(8px, 1.5vh, 12px) clamp(15px, 2vw, 25px);
   background-color: #1e4c98;
-  transform: scale(1.05);
-  transition: transform 0.5s;
-}
-#page_WeightProgress button:hover span {
-  width: 100%;
-}
-#page_WeightProgress button span {
-  background: #3275e2; 
-  height: 100%;
-  width: 0%;
+  color: white;
+  border: 2px solid #2922a5;
   border-radius: 10px;
+  font-size: clamp(14px, 1.2vw, 16px);
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+#page_WeightProgress button span {
+  background: #3275e2;
+  height: 100%;
+  width: 0;
   position: absolute;
   left: 0;
   bottom: 0;
   z-index: -1;
-  transition: 0.5s;
+  transition: width 0.3s ease;
 }
 
-/*More info button*/
-#page_WeightProgress .toggle-button {
-  position: absolute;
-  left: 19.5%;
-  bottom: 75%;
+#page_WeightProgress button:hover {
+  transform: scale(1.05);
 }
 
-/*Error message styling*/
-#page_WeightProgress .error-message {
-  color: red; 
-  font-size: 18px; 
-  text-align: center;
-  font-weight: bold; 
-  position: absolute;
-  left: 10%;
-  bottom: 89%;
+#page_WeightProgress button:hover span {
+  width: 100%;
 }
-/*Stats(min,max,average)*/
+
+/* Stats Container */
 #page_WeightProgress .stats {
-  padding: 3%;
-  margin: 0 auto;
   background-color: #1e4c98;
-  color: white; /* Dark background */
+  color: white;
   border-radius: 15px;
   border: #2922a5 solid 5px;
-  position: absolute;
-  bottom: 76%;
-  left: 70%;
+  padding: clamp(15px, 2vw, 25px);
+  margin: 20px auto;
 }
 
-/*weight conteiner near graph*/
+/* Weight Text Container */
 #page_WeightProgress .weight-text-container {
-  width: 350px;
-  height: 500px;
+  width: min(350px, 35%);
   background-color: #1e1e20;
-  border: #fff solid 5px;
+  border: 5px solid #fff;
   border-radius: 15px;
-  box-sizing: border-box;
-  position: absolute;
-  left: 10%;
-  bottom: 17%;
+  padding: clamp(15px, 2vw, 25px);
+  position: relative;
+  order: 1;
+  height: fit-content;
+  margin-top: clamp(10px, 3vh, 30px);
 }
+
 #page_WeightProgress .news-image {
-  width: 100px;
-  height: 100px;
+  width: clamp(60px, 8vw, 100px);
+  height: clamp(60px, 8vw, 100px);
   border-radius: 20px;
-  border: 5px #ffffff solid;
-  position: absolute;
-  left: -10%;
-  bottom: 85%;
-}
-#page_WeightProgress .greetings {
-  text-align: center;
-  position: absolute;
-  left: 5%;
-  bottom: 85%;
-  width: 100%;
-  color: white;
-}
-/* Style for weight tracking messages */
-#page_WeightProgress .personalized-message {
-  margin-top: 30%;
-}
-#page_WeightProgress .weight-message {
-  font-size: 13px;
-  text-align: center;
-  line-height: 1.6;
-  color: #ffffff;
-  padding: 1px;
-  margin-bottom: 5%;
   border: 3px solid #ffffff;
+  position: absolute;
+  top: -30px;
+  left: -30px;
+}
+
+#page_WeightProgress .greetings {
+  color: white;
+  text-align: center;
+  font-size: clamp(14px, 1.2vw, 16px);
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+/* Message Styles */
+#page_WeightProgress .personalized-message {
+  margin-top: clamp(20px, 4vh, 40px);
+}
+
+#page_WeightProgress .weight-message {
+  font-size: clamp(12px, 1.1vw, 14px);
+  line-height: 1.6;
+  padding: clamp(10px, 1.5vh, 15px);
+  margin-bottom: 15px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
   background-color: #3e3e42;
 }
-#page_WeightProgress .weight-message-positive {
-  background-color: #19c842;
-  color: #ffffff;
-  border: 3px solid #ffffff;
-}
-#page_WeightProgress .weight-message-negative {
-  background-color: #e40b0b;
-  color: #ffffff;
-  border: 3px solid #ffffff;
-}
-#page_WeightProgress .weight-message-neutral {
-  background-color: #dbad16;
-  color: #ffffff;
-  border: 3px solid #ffffff;
-}
+
 #page_WeightProgress .weight-message p {
-  margin: 3% 0;
-}
-#page_WeightProgress .weight-message span {
-  font-weight: bold;
-  color: #4b4b4b;
-}
-#page_WeightProgress .icon {
-  font-size: 150%;
+  color: white;
+  margin: 5px 0;
 }
 
-/* Add media queries for smaller screens */
-@media (max-width: 768px) {
-  #page_WeightProgress .weight-container {
-    width: 85vw;
-    height: auto;
-    left: 2.5%;
-    bottom: 2.5%;
+#page_WeightProgress .weight-message-positive {
+  background-color: #19c842;
+}
+
+#page_WeightProgress .weight-message-negative {
+  background-color: #e40b0b;
+}
+
+#page_WeightProgress .weight-message-neutral {
+  background-color: #dbad16;
+}
+
+#page_WeightProgress .icon {
+  font-size: 130%;
+  margin-right: 8px;
+}
+
+/* Error Message */
+#page_WeightProgress .error-message {
+  color: #ff4d4d;
+  font-size: clamp(14px, 1.1vw, 16px);
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  #page_WeightProgress .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #page_WeightProgress .weight-container,
+  #page_WeightProgress .weight-text-container {
+    width: min(800px, 90%);
+  }
+
+  #page_WeightProgress .weight-text-container {
+    margin-bottom: 20px;
+  }
+}  @media (max-width: 768px) {
+  #page_WeightProgress {
     padding: 10px;
-    transform: translateY(-40vh);
-    margin-top: 80px; /* Adjust margin for smaller screens */
-    max-height: 80vh; /* Ensure it doesn't exceed viewport height */
   }
-  #page_WeightProgress h1 {
-    font-size: 18px;
-  }
+
   #page_WeightProgress .input-container {
     flex-direction: column;
-    gap: 3px;
+    width: 100%;
+    flex-wrap: wrap;
   }
+
   #page_WeightProgress .weight-input {
-    width: 15rem;
-    left: 15vw;
-    bottom: 23vh;
+    width: min(300px, 90%);
   }
-  #page_WeightProgress .submit-button {
-    left: 7.5%;
-    bottom: 55%;
-  }
-  #page_WeightProgress .toggle-button {
-    left: 65%;
-    bottom: 55%;
-  }
-  #page_WeightProgress .stats {
-    width: 85vw;
-    left: -0vw;
-    bottom: -11.5vh;
-    margin-top: 15px;
-  }
-  #page_WeightProgress .weight-text-container {
-    overflow: auto;
-    width: 95vw;
-    height: auto;
-    left: 2.5%;
-    padding: 15px;
-    transform: translateY(80vh);
-    padding-bottom: 100%;
-  }
+
   #page_WeightProgress .news-image {
-    width: 4rem;
-    height: 4rem;
-    left: 2.5vw;
-    bottom: auto;
+    width: 50px;
+    height: 50px;
+    top: -20px;
+    left: -20px;
   }
-  #page_WeightProgress .greetings {
-    left: 7vw;
-    bottom: auto;
-    width: 95%;
+}
+
+@media (max-width: 480px) {
+  #page_WeightProgress .weight-container {
+    padding: 10px;
   }
+
+  #page_WeightProgress button {
+    width: min(200px, 90%);
+    padding: 8px 15px;
+  }
+
   #page_WeightProgress .weight-message {
     font-size: 13px;
     padding: 8px;
   }
-  #page_WeightProgress .error-message {
-    left: 30%;
-    bottom: 89%;
-  }
-  #page_WeightProgress .weight-message p {
-    margin: 4% 0;
-  }
-  #page_WeightProgress .weight-message span {
-    font-size: 12px;
-  }
+
   #page_WeightProgress .icon {
     font-size: 110%;
   }

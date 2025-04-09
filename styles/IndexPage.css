@@ -192,24 +192,68 @@ html, body {
   #page_Index .content h1 {
     font-size: 50px;
   }
-  #page_Index button {
-    width: 20%;
+  #page_Index #train_button {
+    left: 25%;
+    bottom: -1450px;
+    width: 50%;
   }
-  .calorie-text, .weight-text, .train-text {
-    font-size: 12px;
+  #page_Index #calorie_button {
+    left: 25%;
+    bottom: -650px;
+    width: 50%;
   }
-  #page_Index .calorie_rectangle,
-  #page_Index .weight_rectangle,
-  #page_Index .train_rectangle {
+  #page_Index #weight_button {
+    left: 25%;
+    bottom: -1050px;
+    width: 50%;
+  }
+  #page_Index .calorie_text{
+    font-size: 15px;
+    left: 20%;
+    bottom: 4vh;
+    width: 50%;
+    text-align: start;
+  }
+  #page_Index .weight_text{
+    font-size: 15px;
+    left: 20%;
+    bottom: 5vh;
+    width: 50%;
+    text-align: start;
+  }
+  #page_Index .train_text {
+    font-size: 15px;
+    left: 20%;
+    bottom: 5vh;
+    width: 50%;
+    text-align: start;
+  }
+  #page_Index .calorie_rectangle{
     width: 90%;
     left: 5%;
     bottom: -650px;
   }
-  #page_Index .calorie_image, 
-  #page_Index .weight_image,
+  #page_Index .weight_rectangle{
+    width: 90%;
+    left: 5%;
+    bottom: -1050px;
+  }
+  #page_Index .train_rectangle {
+    width: 90%;
+    left: 5%;
+    bottom: -1450px;
+  }
+  #page_Index .calorie_image{
+    left: 10%;
+    bottom: -600px;
+  }
+  #page_Index .weight_image{
+    left: 10%;
+    bottom: -1000px;
+  }
   #page_Index .train_image {
-    width: 80px;
-    height: 80px;
+    left: 10%;
+    bottom: -1400px;
   }
 }
 
@@ -231,19 +275,64 @@ html, body {
     width: 40%;
     font-size: 80%;
   }
-  #page_Index .calorie_rectangle,
-  #page_Index .weight_rectangle,
+  #page_Index .calorie_rectangle{
+    width: 80%;
+    bottom: -550px;
+  }
+  #page_Index .weight_rectangle{
+    width: 80%;
+    bottom: -900px;
+  }
   #page_Index .train_rectangle {
     width: 80%;
-    left: 10%;
-    bottom: -650px;
+    bottom: -1250px;
   }
-  #page_Index .calorie_text,
-  #page_Index .weight_text,
+  #page_Index .calorie_text{
+    font-size: 11px;
+    left: 20%;
+    bottom: 4vh;
+    width: 80%;
+    text-align: start;
+  }
+  #page_Index .weight_text{
+    font-size: 11px;
+    left: 20%;
+    bottom: 5vh;
+    width: 80%;
+    text-align: start;
+  }
   #page_Index .train_text {
     font-size: 11px;
+    left: 20%;
+    bottom: 5vh;
+    width: 75%;
+    text-align: start;
   }
-
+  #page_Index #train_button {
+    left: 25%;
+    bottom: -1250px;
+  }
+  #page_Index #calorie_button {
+    left: 25%;
+    bottom: -550px;
+  }
+  #page_Index #weight_button {
+    left: 25%;
+    bottom: -900px;
+  }
+  #page_Index .calorie_image{
+    left: 7%;
+    bottom: -480px;
+  }
+  #page_Index .weight_image{
+    left: 7%;
+    bottom: -830px;
+  }
+  #page_Index .train_image {
+    left: 7%;
+    bottom: -1190px;
+  }
+}
 @media (max-width: 480px) {
   #page_Index .content h1 {
     font-size: 30px;
@@ -294,6 +383,7 @@ html, body {
   #page_Index .calorie_text{
     font-size: 10px;
     left: 10%;
+    bottom: 13vh;
     text-align: center;
     width: 80%;
   }
@@ -344,5 +434,4 @@ html, body {
     border: none;
     background-color: transparent;
   }
-}
 }
