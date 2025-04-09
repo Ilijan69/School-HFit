@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { auth, db } from "../firebase/firebaseConfig"
 import { doc, getDoc } from "firebase/firestore"
 import { logout } from "../firebase/authService"
+import NavigationLinks from "./NavigationLinks"
 
 function truncateName(name: string, maxLength: number) {
   if (name.length <= maxLength) return name;
@@ -24,6 +25,7 @@ function NavBar() {
   const [activeAccount, setActiveAccount] = useState<string | null>(null)
   const [password, setPassword] = useState<string>("")
   const [errorMessage, setErrorMessage] = useState<string>("")
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -66,6 +68,36 @@ function NavBar() {
 
     return () => unsubscribe()
   }, [])
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    // Cleanup function to ensure scroll is restored when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const navContent = document.querySelector('.nav-content');
+      const mobileHeader = document.querySelector('.mobile-header');
+      
+      if (isMobileMenuOpen && navContent && mobileHeader) {
+        if (!navContent.contains(event.target as Node) && 
+            !mobileHeader.contains(event.target as Node)) {
+          setIsMobileMenuOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
 
   const handleLogout = async () => {
     await logout()
@@ -124,138 +156,136 @@ function NavBar() {
     setActiveAccount(null) // Close the password popup
   }
 
+  const toggleMobileMenu = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
   return (
     <header>
       <nav className="navbar" onClick={closePopup}>
-        <Link href="/">
-        <Image src="/Pics/HFit logo.png" width={1000} height={40} className="logo" alt="HF_logo" />
-        </Link>
+        {/* Mobile Header - Only visible on mobile */}
+        <div className="mobile-header">
+          <Link href="" onClick={toggleMobileMenu}>
+            <Image src="/Pics/HFit logo.png" width={1000} height={40} className="logo" alt="HF_logo" />
+          </Link>
+        </div>
+
+        {/* Desktop Logo and Auth - Only visible on desktop */}
+        <div className="desktop-section">
+          <Link href="/">
+            <Image src="/Pics/HFit logo.png" width={1000} height={40} className="logo" alt="HF_logo" />
+          </Link>
+        </div>
+
+        {/* Navigation Links - Mobile menu on mobile, regular nav on desktop */}
+        <div className={`nav-content ${isMobileMenuOpen ? 'open' : ''}`}>
         {loading ? (
-          <div className="auth-container">{/* Show a subtle loading indicator or nothing while loading */}</div>
-        ) : !user ? (
-          <div className="auth-container">
-            <div className="buttons-container">
-              <Link href="/register">
-                <button className="register-button">
-                  <span></span> Регистрация
-                </button>
-              </Link>
-              <Link href="/login">
-                <button className="login-button">
-                  <span></span> Влизане
-                </button>
-              </Link>
+            <div className="auth-container"></div>
+          ) : !user ? (
+            <div className="auth-container">
+              <div className="buttons-container">
+                <Link href="/register">
+                  <button className="register-button">
+                    <span></span> Регистрация
+                  </button>
+                </Link>
+                <Link href="/login">
+                  <button className="login-button">
+                    <span></span> Влизане
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="user-container" onClick={(e) => e.stopPropagation()}>
-            <div className="avatar-container" onClick={togglePopup}>
-            {gender === "Male" && (
-                <Image src="/Pics/male_pfp.png" className="avatar" width={45} height={45} alt="Male Avatar" />
-              )}
-              {gender === "Female" && (
-                <Image src="/Pics/femal_pfp.png" className="avatar" width={45} height={45} alt="Female Avatar" />
-              )}
-              <p className="greeting">Здравей, {truncateName(user.displayName?.split(" ")[0] || "loading", 7)}</p>
-            </div>
-            {isPopupVisible && (
-              <div className="popup">
-                <button onClick={closePopup} className="close-popup">
-                  ×
-                </button>
-                <div className="accounts-list">
-                  <p>Използвани акаунти:</p>
-                  <ul>
-                    {accounts.map((account, index) => (
-                      <li
-                        key={index}
-                        className={`account-item ${activeAccount === account.email ? "active" : ""}`}
-                        onClick={() => {
-                          if (activeAccount !== account.email) {
-                            // Reset password and error message when selecting a different account
-                            setPassword("")
-                            setErrorMessage("")
-                          }
-                          setActiveAccount(activeAccount === account.email ? null : account.email)
-                        }}
-                      >
-                        <span>{account.email}</span>
-                        <button
-                          className="remove-account-button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            handleRemoveAccount(account.email)
+          ) : (
+            <div className="user-container" onClick={(e) => e.stopPropagation()}>
+              <div className="avatar-container" onClick={togglePopup}>
+                {gender === "Male" && (
+                  <Image src="/Pics/male_pfp.png" className="avatar" width={45} height={45} alt="Male Avatar" />
+                )}
+                {gender === "Female" && (
+                  <Image src="/Pics/femal_pfp.png" className="avatar" width={45} height={45} alt="Female Avatar" />
+                )}
+                <p className="greeting">Здравей, {truncateName(user.displayName?.split(" ")[0] || "loading", 7)}</p>
+              </div>
+              {isPopupVisible && (
+                <div className="popup">
+                  <button onClick={closePopup} className="close-popup">
+                    ×
+                  </button>
+                  <div className="accounts-list">
+                    <p>Използвани акаунти:</p>
+                    <ul>
+                      {accounts.map((account, index) => (
+                        <li
+                          key={index}
+                          className={`account-item ${activeAccount === account.email ? "active" : ""}`}
+                          onClick={() => {
+                            if (activeAccount !== account.email) {
+                              setPassword("")
+                              setErrorMessage("")
+                            }
+                            setActiveAccount(activeAccount === account.email ? null : account.email)
                           }}
                         >
-                          ×
-                        </button>
-                        {activeAccount === account.email && (
-                          <div className="password-popup" onClick={(e) => e.stopPropagation()}>
-                            {errorMessage && <p className="error-message">{errorMessage}</p>}
-                            <input
-                              type="password"
-                              value={password}
-                              onChange={(e) => {
-                                setPassword(e.target.value)
-                                setErrorMessage("")
-                              }}
-                              placeholder="Password"
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                  handleSwitchAccount(account.email)
-                                }
-                              }}
-                            />
-                            <div className="popup-buttons">
-                              <button className="confirm-button" onClick={() => handleSwitchAccount(account.email)}>
-                                <span></span> Confirm
-                              </button>
-                              <button className="cancel-button" onClick={handleCancel}>
-                                <span></span> Cancel
-                              </button>
+                          <span>{account.email}</span>
+                          <button
+                            className="remove-account-button"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleRemoveAccount(account.email)
+                            }}
+                          >
+                            ×
+                          </button>
+                          {activeAccount === account.email && (
+                            <div className="password-popup" onClick={(e) => e.stopPropagation()}>
+                              {errorMessage && <p className="error-message">{errorMessage}</p>}
+                              <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => {
+                                  setPassword(e.target.value)
+                                  setErrorMessage("")
+                                }}
+                                placeholder="Password"
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    handleSwitchAccount(account.email)
+                                  }
+                                }}
+                              />
+                              <div className="popup-buttons">
+                                <button className="confirm-button" onClick={() => handleSwitchAccount(account.email)}>
+                                  <span></span> Confirm
+                                </button>
+                                <button className="cancel-button" onClick={handleCancel}>
+                                  <span></span> Cancel
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  <button onClick={handleLogout} className="logout-button">
-                    <span></span> Излез от акаунт
-                  </button>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                    <button onClick={handleLogout} className="logout-button">
+                      <span></span> Излез от акаунт
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
+          )}
+          <div className="links-mobile">
+          <NavigationLinks loading={loading} user={user} closeMobileMenu={closeMobileMenu} />
           </div>
-        )}
-        <div className="redirects">
-          <ul>
-            <li>
-              <Link href="/" className="active-link">
-                Начало
-              </Link>
-            </li>
-            <li>
-              <Link href="/calorie_calculator" className="active-link">
-                Калкулатор
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/weight_progress"
-                className={loading ? "active-link" : user ? "active-link" : "inactive-link"}
-              >
-                Теглови прогрес
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/training_sessions"
-                className={loading ? "active-link" : user ? "active-link" : "inactive-link"}
-              >
-                Тренировачни упражнения
-              </Link>
-            </li>
-          </ul>
+        </div>
+        <div className="links-pc">
+        <NavigationLinks loading={loading} user={user} closeMobileMenu={closeMobileMenu} />
         </div>
       </nav>
     </header>

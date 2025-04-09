@@ -152,7 +152,7 @@
     max-width: none;
     padding: 20px; 
     margin: auto;
-    max-height: 80vh; /* Ensure it doesn't exceed viewport height */
+    max-height: 100vh; /* Ensure it doesn't exceed viewport height */
   }
   #page_CalorieCalculator .gender-container {
     width: 100%;
