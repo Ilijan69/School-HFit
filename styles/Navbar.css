@@ -318,12 +318,6 @@ button:hover {
     left: 0;
   }
 
-  .redirects ul {
-    margin: 0;
-    padding: 0;
-    margin-left: -23%;
-  }
-
   .logo {
     width: 100px;
   }
@@ -359,13 +353,19 @@ button:hover {
   .redirects ul {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    align-items: center;
+    margin: 0;
     padding: 0;
+    width: 100%;
+    margin-right: 15vw;
   }
 
   .redirects ul li {
     margin: 15px 0;
     text-align: left;
+  }
+  .redirects ul li a.active-link:hover::after {
+    width: 0%;
   }
 
   .auth-container {
