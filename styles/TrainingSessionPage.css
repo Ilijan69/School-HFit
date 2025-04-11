@@ -265,7 +265,10 @@
   justify-content: center;
   align-items: center;
   z-index: 10;
+  overflow-y: auto; /* Allow scrolling within the overlay */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
+
 /* Modal Content */
 #page_TrainingSessions .modal-content {
   background-color: #1e1e20;
@@ -275,7 +278,18 @@
   width: 90%;
   max-width: 500px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Center the modal vertically */
+  max-height: 90vh; /* Limit height to prevent overflow */
+  overflow-y: auto; /* Enable scrolling within the modal */
 }
+
+/* Lock body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 /* Modal Actions */
 #page_TrainingSessions .modal-actions {
   display: flex;

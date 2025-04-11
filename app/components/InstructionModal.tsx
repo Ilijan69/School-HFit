@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface InstructionModalProps {
   workoutName: string;
@@ -11,6 +11,16 @@ const InstructionModal: React.FC<InstructionModalProps> = ({
   instructions,
   onClose,
 }) => {
+  useEffect(() => {
+    // Add modal-open class to body when component mounts
+    document.body.classList.add('modal-open');
+    
+    // Remove modal-open class from body when component unmounts
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, []);
+
   // Convert newlines into <br /> for displaying
   const formattedInstructions = instructions.split("\n").map((line, index) => (
     <React.Fragment key={index}>
